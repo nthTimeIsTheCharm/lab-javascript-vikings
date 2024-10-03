@@ -72,7 +72,7 @@ class War {
     const chosenSaxon = this.saxonArmy[randomSaxonIndex];
     
     //Determine who attacks and conduct attack
-    if (attacker.toLowerCase === "viking" && attackee.toLowerCase === "saxon"){
+    if (attacker.toLowerCase() === "viking" && attackee.toLowerCase() === "saxon"){
         const attackOutcome = chosenSaxon.receiveDamage(chosenViking.strength);
         if (attackOutcome === "A Saxon has died in combat") {
             this.saxonArmy.splice(randomSaxonIndex, 1);
