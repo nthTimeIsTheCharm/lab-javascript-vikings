@@ -82,7 +82,7 @@ class War {
     } else if (attacker.toLowerCase === "saxon" && attackee.toLowerCase === "viking"){
         const attackOutcome = chosenViking.receiveDamage(chosenSaxon.strength);
         if (attackOutcome === `${chosenViking.name} has died in act of combat`) {
-          this.VikingArmy.splice(randomVikingIndex, 1);
+          this.vikingArmy.splice(randomVikingIndex, 1);
         }
         return attackOutcome;
 
