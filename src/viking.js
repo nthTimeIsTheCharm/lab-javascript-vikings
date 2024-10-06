@@ -54,68 +54,39 @@ class War {
     this.saxonArmy = [];
   }
 
-  
   addViking(viking) {
     this.vikingArmy.push(viking);
   }
+
   addSaxon(saxon) {
     this.saxonArmy.push(saxon);
   }
 
   //Idea to combine vikingAttack() and saxonAttack()
   attackEnemy(attacker, attackee){
+    //Randomly choose attacker
+    const randomAttackerIndex = Math.floor(Math.random() * attacker.length);
+    const chosenAttacker = attacker[randomAttackerIndex];
 
-    //Randomly choose a Viking and a Saxon
-    const randomVikingIndex = Math.floor(Math.random() * this.vikingArmy.length);
-    const chosenViking = this.vikingArmy[randomVikingIndex];
-    const randomSaxonIndex = Math.floor(Math.random() * this.saxonArmy.length);
-    const chosenSaxon = this.saxonArmy[randomSaxonIndex];
-    
-    //Determine who attacks and conduct attack
-    if (attacker.toLowerCase() === "viking" && attackee.toLowerCase() === "saxon"){
-        const attackOutcome = chosenSaxon.receiveDamage(chosenViking.strength);
-        if (attackOutcome === "A Saxon has died in combat") {
-            this.saxonArmy.splice(randomSaxonIndex, 1);
-        }
-        return attackOutcome;
+    //Randomly choose attackee
+    const randomAttackeeIndex = Math.floor(Math.random() * attackee.length);
+    const chosenAttackee = attackee[randomAttackeeIndex];
 
-    } else if (attacker.toLowerCase === "saxon" && attackee.toLowerCase === "viking"){
-        const attackOutcome = chosenViking.receiveDamage(chosenSaxon.strength);
-        if (attackOutcome === `${chosenViking.name} has died in act of combat`) {
-          this.vikingArmy.splice(randomVikingIndex, 1);
-        }
-        return attackOutcome;
+    //Conduct attack
+    const attackOutcome = chosenAttackee.receiveDamage(chosenAttacker.strength);
 
-    }else{
-        return "Something has gone wrong with the attack";
+    if (attackOutcome.includes("died")) {
+      attackee.splice(randomAttackeeIndex, 1);
     }
+    return attackOutcome;
   }
 
   vikingAttack() {
-    const randomVikingIndex = Math.floor(Math.random() * (this.vikingArmy.length));
-    const chosenViking = this.vikingArmy[randomVikingIndex];
-    const randomSaxonIndex = Math.floor(Math.random() * this.saxonArmy.length);
-    const chosenSaxon = this.saxonArmy[randomSaxonIndex];
-
-    const attackOutcome = chosenSaxon.receiveDamage(chosenViking.strength);
-    if (attackOutcome === "A Saxon has died in combat"){
-        this.saxonArmy.splice(randomSaxonIndex, 1);
-    }
-    return attackOutcome;
+   return this.attackEnemy(this.vikingArmy, this.saxonArmy);
   }
 
   saxonAttack() {
-    const randomSaxonIndex = Math.floor(Math.random() * this.saxonArmy.length);
-    const chosenSaxon = this.saxonArmy[randomSaxonIndex];
-
-    const randomVikingIndex = Math.floor(Math.random() * this.vikingArmy.length);
-    const chosenViking = this.vikingArmy[randomVikingIndex];
-    
-    const attackOutcome = chosenViking.receiveDamage(chosenSaxon.strength);
-    if (attackOutcome === `${chosenViking.name} has died in act of combat`) {
-      this.vikingArmy.splice(randomVikingIndex, 1);
-    }
-    return attackOutcome;
+   return this.attackEnemy(this.saxonArmy, this.vikingArmy);
   }
 
   showStatus() {
@@ -131,3 +102,26 @@ class War {
   }
 
 }
+
+/* const war1 = new War();
+const viking1 = new Viking("A", 5, 5);
+const viking2 = new Viking("B", 5, 5);
+const viking3 = new Viking("C", 5, 5);
+const saxon1 = new Saxon (5, 5);
+const saxon2 = new Saxon (5, 5);
+const saxon3 = new Saxon (5, 5);
+war1.addViking(viking1);
+war1.addViking(viking2);
+war1.addViking(viking3);
+war1.addSaxon(saxon1);
+war1.addSaxon(saxon2);
+war1.addSaxon(saxon3);
+console.log(war1.vikingArmy);
+console.log(war1.saxonArmy);
+war1.vikingAttack();
+war1.saxonAttack();
+war1.vikingAttack();
+war1.saxonAttack();
+war1.vikingAttack();
+war1.saxonAttack(); */
+
